@@ -150,4 +150,6 @@ if __name__ == '__main__':
     print("🏀 Basketball Classifier API starting…")
     print(f"   Model path : {MODEL_PATH}")
     print(f"   TensorFlow : {'✓' if TF_AVAILABLE else '✗ not installed'}")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
