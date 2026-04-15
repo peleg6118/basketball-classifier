@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
   <style>
-    /* ── Reset & Variables ───────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -36,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Background texture ──────────────────────────────────────────── */
     body::before {
       content: '';
       position: fixed;
@@ -48,7 +46,6 @@
       z-index: 0;
     }
 
-    /* ── Court lines decoration ──────────────────────────────────────── */
     body::after {
       content: '';
       position: fixed;
@@ -59,7 +56,6 @@
       z-index: 0;
     }
 
-    /* ── Layout ──────────────────────────────────────────────────────── */
     .container {
       position: relative; z-index: 1;
       max-width: 900px;
@@ -67,7 +63,6 @@
       padding: 2rem 1.5rem 4rem;
     }
 
-    /* ── Header ──────────────────────────────────────────────────────── */
     header {
       text-align: center;
       padding: 3rem 0 2.5rem;
@@ -119,7 +114,6 @@
       text-transform: uppercase;
     }
 
-    /* ── Card ────────────────────────────────────────────────────────── */
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -149,7 +143,24 @@
       gap: 0.5rem;
     }
 
-    /* ── Form Grid ───────────────────────────────────────────────────── */
+    /* ── Section divider ── */
+    .section-divider {
+      margin: 1.8rem 0 1.2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-subtitle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -162,12 +173,16 @@
       gap: 0.4rem;
     }
 
+    /* ── Label with tooltip ── */
     label {
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--muted);
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
     }
 
     label span.full-name {
@@ -178,6 +193,76 @@
       text-transform: none;
       letter-spacing: 0;
       margin-top: 1px;
+    }
+
+    /* ── Tooltip wrapper ── */
+    .tooltip-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .tooltip-btn {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(122,128,153,0.2);
+      border: 1px solid rgba(122,128,153,0.4);
+      color: var(--muted);
+      font-size: 0.65rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      line-height: 1;
+      font-family: 'Cairo', sans-serif;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .tooltip-btn:hover {
+      background: rgba(245,132,42,0.2);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .tooltip-box {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 50%;
+      transform: translateX(50%);
+      background: #1e2330;
+      border: 1px solid rgba(245,132,42,0.35);
+      border-radius: 8px;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.76rem;
+      font-weight: 400;
+      color: var(--text);
+      white-space: nowrap;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      letter-spacing: 0;
+      text-transform: none;
+      pointer-events: none;
+    }
+
+    .tooltip-box::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 50%;
+      transform: translateX(50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(245,132,42,0.35);
+    }
+
+    .tooltip-wrap:hover .tooltip-box,
+    .tooltip-btn:focus + .tooltip-box {
+      display: block;
     }
 
     input[type="number"], input[type="text"] {
@@ -203,35 +288,6 @@
       box-shadow: 0 0 0 3px rgba(245,132,42,0.15);
     }
 
-    /* ── Optional fields section ─────────────────────────────────────── */
-    .optional-toggle {
-      margin-top: 1.5rem;
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      user-select: none;
-      width: fit-content;
-      transition: color 0.2s;
-    }
-    .optional-toggle:hover { color: var(--orange); }
-    .optional-toggle .arrow {
-      transition: transform 0.3s;
-      display: inline-block;
-    }
-    .optional-toggle.open .arrow { transform: rotate(90deg); }
-
-    .optional-fields {
-      display: none;
-      margin-top: 1rem;
-    }
-    .optional-fields.open { display: block; }
-
-    /* ── Submit button ───────────────────────────────────────────────── */
     .btn-predict {
       margin-top: 2rem;
       width: 100%;
@@ -257,7 +313,6 @@
     .btn-predict:active { transform: translateY(0); }
     .btn-predict:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* ── Result ──────────────────────────────────────────────────────── */
     #result-section {
       margin-top: 2rem;
       display: none;
@@ -317,7 +372,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* ── Probability bars ─────────────────────────────────────────────── */
     .prob-bars {
       margin-top: 1.5rem;
       display: flex;
@@ -350,7 +404,6 @@
 
     .prob-pct { width: 42px; font-weight: 700; color: var(--text); font-size: 0.8rem; }
 
-    /* ── Error ───────────────────────────────────────────────────────── */
     .error-card {
       background: rgba(231,76,60,0.1);
       border: 1px solid rgba(231,76,60,0.3);
@@ -362,7 +415,6 @@
       display: none;
     }
 
-    /* ── Loader ──────────────────────────────────────────────────────── */
     .loader {
       display: none;
       text-align: center;
@@ -382,7 +434,6 @@
       to   { transform: translateY(0) scaleX(1.2) scaleY(0.85); }
     }
 
-    /* ── Footer ──────────────────────────────────────────────────────── */
     footer {
       text-align: center;
       margin-top: 3rem;
@@ -390,7 +441,6 @@
       font-size: 0.78rem;
     }
 
-    /* ── Responsive ──────────────────────────────────────────────────── */
     @media (max-width: 500px) {
       .form-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -400,7 +450,6 @@
 <body>
 <div class="container">
 
-  <!-- ── Header ── -->
   <header>
     <span class="ball-icon">🏀</span>
     <h1>Basketball Scout AI</h1>
@@ -408,106 +457,196 @@
     <span class="badge">דיוק 91% · Neural Network</span>
   </header>
 
-  <!-- ── Form card ── -->
   <div class="card">
     <div class="section-title">⚡ הכנס נתוני שחקן</div>
 
     <div class="form-grid" id="main-fields">
 
       <div class="field">
-        <label>MIN <span class="full-name">דקות משחק</span></label>
-        <input type="number" id="MIN" min="0" step="0.1" placeholder="28.5" />
+        <label>
+          MIN
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">דקות משחק ממוצעות לגיים</div>
+          </div>
+          <span class="full-name">דקות משחק</span>
+        </label>
+        <input type="number" id="MIN" min="0" max="48" step="0.1" placeholder="28.5" />
       </div>
 
       <div class="field">
-        <label>3PM <span class="full-name">קליעות 3 נקודות</span></label>
+        <label>
+          3PM
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">קליעות מעבר לקו 3 נקודות לגיים</div>
+          </div>
+          <span class="full-name">קליעות 3 נקודות</span>
+        </label>
         <input type="number" id="3PM" min="0" step="0.1" placeholder="1.8" />
       </div>
 
       <div class="field">
-        <label>3PA <span class="full-name">ניסיונות 3 נקודות</span></label>
+        <label>
+          3PA
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">ניסיונות זריקה מעבר לקו 3 נקודות לגיים</div>
+          </div>
+          <span class="full-name">ניסיונות 3 נקודות</span>
+        </label>
         <input type="number" id="3PA" min="0" step="0.1" placeholder="4.5" />
       </div>
 
       <div class="field">
-        <label>FTM <span class="full-name">קליעות קו עונשין</span></label>
+        <label>
+          FTM
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">קליעות מקו העונשין לגיים</div>
+          </div>
+          <span class="full-name">קליעות קו עונשין</span>
+        </label>
         <input type="number" id="FTM" min="0" step="0.1" placeholder="3.2" />
       </div>
 
       <div class="field">
-        <label>FTA <span class="full-name">ניסיונות קו עונשין</span></label>
+        <label>
+          FTA
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">ניסיונות זריקה מקו העונשין לגיים</div>
+          </div>
+          <span class="full-name">ניסיונות קו עונשין</span>
+        </label>
         <input type="number" id="FTA" min="0" step="0.1" placeholder="4.1" />
       </div>
 
       <div class="field">
-        <label>TOV <span class="full-name">אבדות כדור</span></label>
+        <label>
+          TOV
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">אבדות כדור לגיים (Turnovers)</div>
+          </div>
+          <span class="full-name">אבדות כדור</span>
+        </label>
         <input type="number" id="TOV" min="0" step="0.1" placeholder="2.3" />
       </div>
 
       <div class="field">
-        <label>PF <span class="full-name">פאולים אישיים</span></label>
-        <input type="number" id="PF" min="0" step="0.1" placeholder="2.8" />
+        <label>
+          PF
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">פאולים אישיים שנגרמו לגיים</div>
+          </div>
+          <span class="full-name">פאולים אישיים</span>
+        </label>
+        <input type="number" id="PF" min="0" max="6" step="0.1" placeholder="2.8" />
       </div>
 
       <div class="field">
-        <label>ORB <span class="full-name">ריבאונדים התקפיים</span></label>
+        <label>
+          ORB
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">ריבאונדים התקפיים — תפיסת הכדור לאחר זריקה כושלת של הקבוצה שלך</div>
+          </div>
+          <span class="full-name">ריבאונדים התקפיים</span>
+        </label>
         <input type="number" id="ORB" min="0" step="0.1" placeholder="0.9" />
       </div>
 
       <div class="field">
-        <label>REB <span class="full-name">ריבאונדים סה"כ</span></label>
+        <label>
+          REB
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">סך כל הריבאונדים לגיים (התקפיים + הגנתיים)</div>
+          </div>
+          <span class="full-name">ריבאונדים סה"כ</span>
+        </label>
         <input type="number" id="REB" min="0" step="0.1" placeholder="5.5" />
       </div>
 
       <div class="field">
-        <label>AST <span class="full-name">בישורים</span></label>
+        <label>
+          AST
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">בישורים — מסירות שהובילו ישירות לסל לגיים</div>
+          </div>
+          <span class="full-name">בישורים</span>
+        </label>
         <input type="number" id="AST" min="0" step="0.1" placeholder="4.2" />
       </div>
 
       <div class="field">
-        <label>STL <span class="full-name">גניבות כדור</span></label>
+        <label>
+          STL
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">גניבות כדור מהיריב לגיים (Steals)</div>
+          </div>
+          <span class="full-name">גניבות כדור</span>
+        </label>
         <input type="number" id="STL" min="0" step="0.1" placeholder="1.2" />
       </div>
 
       <div class="field">
-        <label>BLK <span class="full-name">חסימות</span></label>
+        <label>
+          BLK
+          <div class="tooltip-wrap">
+            <button class="tooltip-btn" tabindex="0">?</button>
+            <div class="tooltip-box">חסימות זריקות היריב לגיים (Blocks)</div>
+          </div>
+          <span class="full-name">חסימות</span>
+        </label>
         <input type="number" id="BLK" min="0" step="0.1" placeholder="0.5" />
       </div>
 
     </div>
 
-    <!-- Optional fields -->
-    <div class="optional-toggle" id="opt-toggle">
-      <span class="arrow">▶</span> נתונים פיזיים (אופציונלי)
-    </div>
-
-    <div class="optional-fields" id="opt-fields">
+    <!-- Physical data — now REQUIRED -->
+    <div class="section-divider">
+      <div class="section-subtitle">📏 נתונים פיזיים</div>
       <div class="form-grid">
         <div class="field">
-          <label>גובה (cm)</label>
-          <input type="number" id="height_cm" min="150" max="230" step="0.5" placeholder="198" />
+          <label>
+            גובה
+            <div class="tooltip-wrap">
+              <button class="tooltip-btn" tabindex="0">?</button>
+              <div class="tooltip-box">גובה השחקן בסנטימטרים</div>
+            </div>
+            <span class="full-name">גובה (cm)</span>
+          </label>
+          <input type="number" id="height_cm" min="150" max="250" step="0.5" placeholder="198" />
         </div>
         <div class="field">
-          <label>משקל (kg)</label>
-          <input type="number" id="weight_kg" min="60" max="160" step="0.5" placeholder="95" />
+          <label>
+            משקל
+            <div class="tooltip-wrap">
+              <button class="tooltip-btn" tabindex="0">?</button>
+              <div class="tooltip-box">משקל השחקן בקילוגרמים</div>
+            </div>
+            <span class="full-name">משקל (kg)</span>
+          </label>
+          <input type="number" id="weight_kg" min="60" max="180" step="0.5" placeholder="95" />
         </div>
       </div>
     </div>
 
-    <!-- Buttons -->
     <button class="btn-predict" id="predict-btn">🏀 סווג שחקן</button>
 
-    <!-- Error -->
     <div class="error-card" id="error-card"></div>
 
-    <!-- Loader -->
     <div class="loader" id="loader">
       <div class="loader-ball"></div>
       <p style="margin-top:1rem; color:var(--muted); font-size:0.85rem;">מנתח נתונים…</p>
     </div>
   </div>
 
-  <!-- ── Result ── -->
   <div id="result-section">
     <div class="result-card" id="result-card">
       <span class="result-emoji" id="res-emoji"></span>
@@ -522,27 +661,37 @@
   </div>
 
   <footer>
-    Built with Flask + TensorFlow &nbsp;·&nbsp; Ido &amp; Paleg Project &nbsp;·&nbsp; 91% Accuracy
+    Built with Flask + TensorFlow &nbsp;·&nbsp; Peleg &amp; Ido Project &nbsp;·&nbsp; 91% Accuracy
   </footer>
 
 </div>
 
 <script>
-  // ── Optional fields toggle ─────────────────────────────────────────────
-  const optToggle = document.getElementById('opt-toggle');
-  const optFields = document.getElementById('opt-fields');
-  optToggle.addEventListener('click', () => {
-    optToggle.classList.toggle('open');
-    optFields.classList.toggle('open');
-  });
-
-  // ── Predict ───────────────────────────────────────────────────────────
-  const btn         = document.getElementById('predict-btn');
-  const loader      = document.getElementById('loader');
-  const errorCard   = document.getElementById('error-card');
-  const resultSec   = document.getElementById('result-section');
+  const btn       = document.getElementById('predict-btn');
+  const loader    = document.getElementById('loader');
+  const errorCard = document.getElementById('error-card');
+  const resultSec = document.getElementById('result-section');
 
   const FIELD_IDS = ['MIN','3PM','3PA','FTM','FTA','TOV','PF','ORB','REB','AST','STL','BLK'];
+  const PHYSICAL_IDS = ['height_cm', 'weight_kg'];
+
+  // Basketball validation rules: { id, min, max, label, unit }
+  const LIMITS = {
+    'MIN':       { min: 0,   max: 48,  label: 'דקות משחק',           unit: 'דקות' },
+    '3PM':       { min: 0,   max: 30,  label: 'קליעות 3 נקודות',     unit: '' },
+    '3PA':       { min: 0,   max: 30,  label: 'ניסיונות 3 נקודות',   unit: '' },
+    'FTM':       { min: 0,   max: 50,  label: 'קליעות עונשין',        unit: '' },
+    'FTA':       { min: 0,   max: 50,  label: 'ניסיונות עונשין',      unit: '' },
+    'TOV':       { min: 0,   max: 20,  label: 'אבדות כדור',           unit: '' },
+    'PF':        { min: 0,   max: 6,   label: 'פאולים אישיים',        unit: 'פאולים (מקסימום 6 בכדורסל)' },
+    'ORB':       { min: 0,   max: 60,  label: 'ריבאונדים התקפיים',    unit: '' },
+    'REB':       { min: 0,   max: 60,  label: 'ריבאונדים סה"כ',       unit: '' },
+    'AST':       { min: 0,   max: 50,  label: 'בישורים',              unit: '' },
+    'STL':       { min: 0,   max: 30,  label: 'גניבות כדור',          unit: '' },
+    'BLK':       { min: 0,   max: 30,  label: 'חסימות',               unit: '' },
+    'height_cm': { min: 150, max: 250, label: 'גובה',                 unit: 'ס"מ' },
+    'weight_kg': { min: 60,  max: 400, label: 'משקל',                 unit: 'ק"ג' },
+  };
 
   function showError(msg) {
     errorCard.textContent = '⚠️ ' + msg;
@@ -550,29 +699,37 @@
   }
   function hideError() { errorCard.style.display = 'none'; }
 
+  function validateField(id) {
+    const val = document.getElementById(id).value.trim();
+    const L   = LIMITS[id];
+    if (val === '') return `נא למלא את השדה: ${L.label}`;
+    const num = parseFloat(val);
+    if (isNaN(num))       return `ערך לא חוקי בשדה: ${L.label}`;
+    if (num < L.min)      return `${L.label} לא יכול להיות שלילי`;
+    if (num > L.max) {
+      const extra = L.unit ? ` (${L.unit})` : ` (מקסימום: ${L.max})`;
+      return `${L.label} חייב להיות עד ${L.max}${extra}`;
+    }
+    return null;
+  }
+
   btn.addEventListener('click', async () => {
     hideError();
     resultSec.style.display = 'none';
 
-    // Validate
     const payload = {};
-    for (const id of FIELD_IDS) {
-      const val = document.getElementById(id).value.trim();
-      if (val === '') {
-        showError(`נא למלא את השדה: ${id}`);
+    const allIds  = [...FIELD_IDS, ...PHYSICAL_IDS];
+
+    for (const id of allIds) {
+      const err = validateField(id);
+      if (err) {
+        showError(err);
         document.getElementById(id).focus();
         return;
       }
-      payload[id] = parseFloat(val);
+      payload[id] = parseFloat(document.getElementById(id).value);
     }
 
-    // Optional physicals
-    const h = document.getElementById('height_cm').value.trim();
-    const w = document.getElementById('weight_kg').value.trim();
-    if (h) payload['height_cm'] = parseFloat(h);
-    if (w) payload['weight_kg'] = parseFloat(w);
-
-    // Send
     btn.disabled = true;
     loader.style.display = 'block';
 
@@ -610,7 +767,6 @@
     document.getElementById('res-label-en').textContent   = data.label_en;
     document.getElementById('res-confidence').textContent = data.confidence;
 
-    // Prob bars
     const barColors = { 'Good Player': '#f5a623', 'Average Player': '#4a90d9', 'Below Average': '#e74c3c' };
     const probBars  = document.getElementById('prob-bars');
     const labels    = { 'Good Player': 'שחקן טוב', 'Average Player': 'ממוצע', 'Below Average': 'לא טוב' };
@@ -631,7 +787,6 @@
     resultSec.style.display = 'block';
     resultSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-    // Animate bars
     requestAnimationFrame(() => {
       document.querySelectorAll('.prob-bar-fill').forEach(el => {
         el.style.width = el.dataset.target + '%';
